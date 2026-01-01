@@ -6,7 +6,11 @@ import { Play, Pause, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-export function FocusTimer() {
+interface FocusTimerProps {
+    onComplete?: () => void;
+}
+
+export function FocusTimer({ onComplete }: FocusTimerProps) {
     const [isActive, setIsActive] = useState(false);
     const [minutes, setMinutes] = useState(25);
     const [seconds, setSeconds] = useState(0);
@@ -21,7 +25,7 @@ export function FocusTimer() {
                     if (minutes === 0) {
                         clearInterval(interval);
                         setIsActive(false);
-                        // Timer done logic
+                        if (onComplete) onComplete();
                     } else {
                         setMinutes(minutes - 1);
                         setSeconds(59);
