@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  /* Ultra Dark / Void Black Palette */
+  --background: #000000;
+  /* Pure Black */
+  --foreground: #fafafa;
+  /* zinc-50 */
+
+  /* Cards are slightly lighter than void, but very dark */
+  --card: #050505;
+  --card-foreground: #fafafa;
+
+  --popover: #050505;
+  --popover-foreground: #fafafa;
+
+  --primary: #fafafa;
+  /* zinc-50 */
+  --primary-foreground: #000000;
+
+  --secondary: #18181b;
+  /* zinc-900 */
+  --secondary-foreground: #fafafa;
+
+  --muted: #18181b;
+  /* zinc-900 */
+  --muted-foreground: #71717a;
+  /* zinc-500 - Lower contrast for calm */
+
+  --accent: #27272a;
+  /* zinc-800 */
+  --accent-foreground: #fafafa;
+
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
+
+  --border: #27272a;
+  /* zinc-800 */
+  --input: #27272a;
+  --ring: #52525b;
+  /* zinc-600 */
+
+  --radius: 0.75rem;
+  /* Slightly larger radius for softer feel */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-radius: var(--radius);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  antialiased: true;
+  /* Subtle noise texture for immersion */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
