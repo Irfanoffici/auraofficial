@@ -1,4 +1,3 @@
-from transformers import pipeline
 import logging
 from app.core.config import settings
 
@@ -20,6 +19,7 @@ class AIEngine:
         if not self.sentiment_analyzer:
             logger.info("⏳ Loading Sentiment Model (Lazy)...")
             try:
+                from transformers import pipeline
                 self.sentiment_analyzer = pipeline(
                     "sentiment-analysis", 
                     model="distilbert-base-uncased-finetuned-sst-2-english",
@@ -32,6 +32,7 @@ class AIEngine:
         if not self.summarizer:
             logger.info("⏳ Loading Summarization Model (Lazy)...")
             try:
+                from transformers import pipeline
                 self.summarizer = pipeline(
                     "summarization", 
                     model="sshleifer/distilbart-cnn-12-6", 

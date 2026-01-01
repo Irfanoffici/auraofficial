@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 venv/
-
+.env
 
 # Node
 node_modules/
@@ -17,3 +17,6 @@ build/
 .vscode/
 .idea/
 *.swp
+
+# Env
+.env.local

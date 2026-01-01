@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "frontend/.next"
+
+[context.production]
+  environment = { NODE_VERSION = "20" }
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Note: This config assumes you might move frontend to root or set 'Base directory' to 'frontend' in Netlify UI.
+# If keeping repository structure as is, set 'Base directory' = 'frontend' in Netlify Site Settings.
