@@ -1,48 +1,40 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
 from app.core.database import get_db
+from app.core.auth import get_current_user
 from app.services.ai_engine import ai_engine
-from pydantic import BaseModel
-from typing import List, Optional
+from google.cloud import firestore
 
 router = APIRouter()
 
-class ReflectionInput(BaseModel):
-    mood_score: int
-    energy_score: int
-    productivity_score: int
-    notes: Optional[str] = None
-
-class InsightResponse(BaseModel):
-    sentiment: Optional[dict]
-    insight_text: str
-
-@router.post("/analyze")
-def analyze_reflection(data: ReflectionInput):
+@router.get("/summary")
+def get_daily_summary(user: dict = Depends(get_current_user)):
     """
-    On-demand analysis of a check-in. 
-    1. Runs sentiment analysis on notes.
-    2. Generates a quick text insight based on scores + notes.
+    Aggregates recent data and generates an AI insight.
     """
+    db = get_db()
+    if not db:
+        # Fallback if DB is down, just return AI chat based on zero context
+        return {"summary": "Database unavailable, but I am ready to help."}
+        
+    # Fetch recent checkins (limit 3)
+    checkins_ref = db.collection("users").document(user['id']).collection("daily_checkins")
+    checkins = checkins_ref.order_by("timestamp", direction=firestore.Query.DESCENDING).limit(3).stream()
     
-    # 1. Sentiment
-    sentiment_result = None
-    if data.notes:
-        sentiment_result = ai_engine.analyze_sentiment(data.notes)
-    
-    # 2. Construct Context for Summarization/insight
-    # We construct a pseudo-sentence for the LLM/Summarizer to "read"
-    mood_str = "high" if data.mood_score >= 8 else "low" if data.mood_score <= 4 else "moderate"
-    context = (
-        f"User reports {mood_str} mood with {data.energy_score}% energy and {data.productivity_score}% productivity. "
-        f"Notes: {data.notes if data.notes else 'No notes provided.'} "
-        "Behavior indicates a correlation between energy levels and subjective mood."
-    )
-    
-    # 3. Generate Insight (using summarizer to condense the context into a 'takeaway')
-    insight_text = ai_engine.generate_insight(context)
+    checkin_texts = []
+    for c in checkins:
+        data = c.to_dict()
+        checkin_texts.append(f"Mood: {data.get('mood_score')}/10, Note: {data.get('notes')}")
+        
+    # Construct Context
+    if not checkin_texts:
+        context = "User has no recent activity recorded."
+    else:
+        context = "Recent User Activity: " + " | ".join(checkin_texts)
+        
+    # Generate Insight
+    insight = ai_engine.generate_insight(context)
     
     return {
-        "sentiment": sentiment_result,
-        "insight_text": insight_text
+        "context_used": context,
+        "ai_summary": insight
     }

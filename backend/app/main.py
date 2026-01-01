@@ -1,18 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.database import engine, Base
-from app.api import focus, insights
-
-# Create Tables (for dev/sqlite simplification)
-Base.metadata.create_all(bind=engine)
+from app.api import focus, checkin, insights
+from app.core.config import settings
 
 app = FastAPI(
-    title="AURA Backend",
-    description="Intelligence Core for AURA Personal Focus Hub",
-    version="1.0.0"
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION,
+    description="Backend for AURA: Authenticated via Supabase, Data via Firebase, Intelligence via HuggingFace."
 )
 
-# CORS - Allow Frontend
+# CORS
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -26,9 +23,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Routers
 app.include_router(focus.router, prefix="/api/v1/focus", tags=["focus"])
+app.include_router(checkin.router, prefix="/api/v1/checkin", tags=["checkin"])
 app.include_router(insights.router, prefix="/api/v1/insights", tags=["insights"])
 
 @app.get("/")
 def read_root():
-    return {"status": "active", "system": "AURA Intelligence Core"}
+    return {
+        "system": "AURA Intelligence Core",
+        "status": "online",
+        "auth": "Supabase JWT",
+        "db": "Firebase Firestore"
+    }

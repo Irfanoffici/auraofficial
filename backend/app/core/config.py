@@ -1,20 +1,20 @@
+import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "AURA Backend"
-    API_V1_STR: str = "/api/v1"
+    PROJECT_NAME: str = "AURA Intelligence Core"
+    VERSION: str = "1.0.0"
     
-    # Security
-    SECRET_KEY: str = "aura_secure_core_key_v1"
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 30 # 30 days
+    # Supabase
+    SUPABASE_URL: str
+    SUPABASE_KEY: str # Anon key
     
-    # Database
-    DATABASE_URL: str = "sqlite:///./aura.db"
+    # Hugging Face
+    HF_TOKEN: str
+    HF_WRITE_TOKEN: str
     
-    # AI
-    HF_TOKEN: str = ""
-    HF_WRITE_TOKEN: str | None = None
+    # Firebase
+    FIREBASE_CREDENTIALS: str = "serviceAccountKey.json"
 
     class Config:
         env_file = ".env"

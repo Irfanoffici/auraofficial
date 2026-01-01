@@ -2,7 +2,6 @@ from transformers import pipeline
 import logging
 from app.core.config import settings
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -12,70 +11,69 @@ class AIEngine:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(AIEngine, cls).__new__(cls)
-            cls._instance._initialize_pipelines()
+            # Lazy init - do NOT load models here
+            cls._instance.sentiment_analyzer = None
+            cls._instance.summarizer = None
         return cls._instance
     
-    def _initialize_pipelines(self):
-        """
-        Initialize the HF pipelines. 
-        Using 'lazy' loading or loading on startup depending on resource preference.
-        Here we load on startup for responsiveness, but strictly strictly using small models.
-        """
-        logger.info("Initializing AI Engine... (This may take a moment to download models)")
-        
-        try:
-            # 1. Sentiment Analysis (Tiny/Fast)
-            # distilbert-base-uncased-finetuned-sst-2-english is ~260MB
-            self.sentiment_analyzer = pipeline(
-                "sentiment-analysis", 
-                model="distilbert-base-uncased-finetuned-sst-2-english",
-                token=settings.HF_TOKEN
-            )
-            
-            # 2. Text Generation / Summarization (Optimized)
-            # Using a distilled BART model for summarization (~1.2GB, might be heavy for some locals)
-            # Alternative: t5-small (~240MB)
-            self.summarizer = pipeline(
-                "summarization", 
-                model="sshleifer/distilbart-cnn-12-6", 
-                token=settings.HF_TOKEN
-            )
-            
-            logger.info("AI Pipelines loaded successfully.")
-            
-        except Exception as e:
-            logger.error(f"Failed to load AI pipelines: {e}")
-            logger.warning("AI Engine running in FALLBACK mode (Mock responses).")
-            self.sentiment_analyzer = None
-            self.summarizer = None
+    def _ensure_only_sentiment(self):
+        if not self.sentiment_analyzer:
+            logger.info("⏳ Loading Sentiment Model (Lazy)...")
+            try:
+                self.sentiment_analyzer = pipeline(
+                    "sentiment-analysis", 
+                    model="distilbert-base-uncased-finetuned-sst-2-english",
+                    token=settings.HF_TOKEN
+                )
+            except Exception as e:
+                logger.warning(f"Feature Fallback: Sentiment model failed to load {e}")
+
+    def _ensure_only_summarizer(self):
+        if not self.summarizer:
+            logger.info("⏳ Loading Summarization Model (Lazy)...")
+            try:
+                self.summarizer = pipeline(
+                    "summarization", 
+                    model="sshleifer/distilbart-cnn-12-6", 
+                    token=settings.HF_TOKEN
+                )
+            except Exception as e:
+                logger.warning(f"Feature Fallback: Summarizer failed to load {e}")
 
     def analyze_sentiment(self, text: str):
+        self._ensure_only_sentiment()
+        
         if not self.sentiment_analyzer:
-            return {"label": "NEUTRAL", "score": 0.5} # Fallback
+            # Fallback Rule-Based
+            logger.info("Using Rule-Based Sentiment Fallback")
+            lower_text = text.lower()
+            if any(w in lower_text for w in ["happy", "good", "great", "excellent", "calm"]):
+                return {"label": "POSITIVE", "score": 0.8}
+            elif any(w in lower_text for w in ["sad", "bad", "terrible", "anxious", "tired"]):
+                return {"label": "NEGATIVE", "score": 0.8}
+            else:
+                return {"label": "NEUTRAL", "score": 0.5}
             
         try:
-            result = self.sentiment_analyzer(text[:512])[0] # Truncate for BERT security
-            return result
+            return self.sentiment_analyzer(text[:512])[0]
         except Exception as e:
-            logger.error(f"Error in sentiment analysis: {e}")
+            logger.error(f"Sentiment Analysis Error: {e}")
             return {"label": "ERROR", "score": 0.0}
 
     def generate_insight(self, context_data: str):
-        """
-        Generates a summary or insight based on aggregated data passed as string.
-        """
+        self._ensure_only_summarizer()
+        
         if not self.summarizer:
-            return "Unable to generate insights (AI Engine offline)."
+            return f"Note: AI Engine offline. Summary of data: {context_data[:100]}..."
             
         try:
-            # Ensure input is long enough for summarization, else just return it
             if len(context_data.split()) < 30:
-                return f"Analysis: {context_data}"
+                return f"Summary: {context_data}"
                 
             summary = self.summarizer(context_data, max_length=60, min_length=10, do_sample=False)[0]
             return summary['summary_text']
         except Exception as e:
-            logger.error(f"Error in insight generation: {e}")
+            logger.error(f"Insight Generation Error: {e}")
             return "Could not generate insight."
 
 ai_engine = AIEngine()
