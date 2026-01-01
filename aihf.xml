@@ -1,0 +1,51 @@
+<AURA_AI version="1.0">
+
+  <METADATA>
+    <NAME>AURA AI Service</NAME>
+    <TYPE>Internal Intelligence Layer</TYPE>
+    <GOAL>
+      Provide safe, explainable, and deterministic intelligence
+      using official Hugging Face resources only.
+    </GOAL>
+  </METADATA>
+
+  <AI_POLICY>
+    <RULE>Use Hugging Face official libraries only</RULE>
+    <RULE>No paid APIs</RULE>
+    <RULE>trust_remote_code = false</RULE>
+    <RULE>Pipeline-based inference only</RULE>
+    <RULE>Read-only HF token</RULE>
+  </AI_POLICY>
+
+  <TASK_REGISTRY>
+    <TASK>sentiment-analysis</TASK>
+    <TASK>summarization</TASK>
+    <TASK>feature-extraction</TASK>
+    <TASK>speech-to-text</TASK>
+  </TASK_REGISTRY>
+
+  <MODEL_SELECTION>
+    <FILTER>License allowlist</FILTER>
+    <FILTER>Pipeline compatibility</FILTER>
+    <FILTER>Model size limit</FILTER>
+    <FILTER>Popularity and freshness</FILTER>
+  </MODEL_SELECTION>
+
+  <ORCHESTRATION>
+    <STEP>Receive task request</STEP>
+    <STEP>Validate against registry</STEP>
+    <STEP>Discover models via HF Hub</STEP>
+    <STEP>Score and select best model</STEP>
+    <STEP>Load model safely</STEP>
+    <STEP>Cache and pin version</STEP>
+    <STEP>Execute inference</STEP>
+    <STEP>Return structured output</STEP>
+  </ORCHESTRATION>
+
+  <SECURITY>
+    <RULE>No frontend access</RULE>
+    <RULE>Environment variables backend-only</RULE>
+    <RULE>Model cache to minimize token usage</RULE>
+  </SECURITY>
+
+</AURA_AI>

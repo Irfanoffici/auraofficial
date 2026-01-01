@@ -1,0 +1,222 @@
+<AURA_SYSTEM version="1.0">
+  
+  <METADATA>
+    <NAME>AURA</NAME>
+    <TAGLINE>Optimize your environment. Transform yourself.</TAGLINE>
+    <TYPE>AI Personal Focus & Well-Being Hub</TYPE>
+    <GOAL>
+      Build a calm, intelligent web application that understands user behavior,
+      focus patterns, emotional state, and environment to provide personalized,
+      non-judgmental guidance for long-term clarity and performance.
+    </GOAL>
+  </METADATA>
+
+  <!-- ========================= -->
+  <!-- CORE PRINCIPLES -->
+  <!-- ========================= -->
+  <PRINCIPLES>
+    <PRINCIPLE>Calm, minimal, premium experience</PRINCIPLE>
+    <PRINCIPLE>Supportive and non-authoritative guidance</PRINCIPLE>
+    <PRINCIPLE>Behavior intelligence over task tracking</PRINCIPLE>
+    <PRINCIPLE>Privacy-first, no client-side secrets</PRINCIPLE>
+    <PRINCIPLE>Logic-first AI, language as presentation layer</PRINCIPLE>
+  </PRINCIPLES>
+
+  <!-- ========================= -->
+  <!-- TARGET USERS -->
+  <!-- ========================= -->
+  <USERS>
+    <USER>Students</USER>
+    <USER>Exam Aspirants</USER>
+    <USER>Professionals</USER>
+    <USER>Creators</USER>
+    <USER>Researchers</USER>
+  </USERS>
+
+  <!-- ========================= -->
+  <!-- UI / UX -->
+  <!-- ========================= -->
+  <INTERFACE>
+    <STYLE>
+      <THEME>Dark Minimal (Notion-like calm)</THEME>
+      <LAYOUT>Sidebar + Card-based Canvas</LAYOUT>
+      <PHILOSOPHY>
+        Interface must reduce cognitive load, never overwhelm,
+        and always surface one primary insight or action.
+      </PHILOSOPHY>
+    </STYLE>
+
+    <NAVIGATION>
+      <ITEM>Home</ITEM>
+      <ITEM>Focus</ITEM>
+      <ITEM>Reflect</ITEM>
+      <ITEM>Understand</ITEM>
+      <ITEM>Grow</ITEM>
+    </NAVIGATION>
+
+    <CARD_TYPES>
+      <CARD>InsightCard</CARD>
+      <CARD>ActionCard</CARD>
+      <CARD>SignalCard</CARD>
+      <CARD>PatternCard</CARD>
+      <CARD>StrategyCard</CARD>
+    </CARD_TYPES>
+  </INTERFACE>
+
+  <!-- ========================= -->
+  <!-- APPLICATION ZONES -->
+  <!-- ========================= -->
+  <ZONES>
+
+    <ZONE name="Home">
+      <PURPOSE>Orient the user to the present moment</PURPOSE>
+      <ELEMENTS>
+        <ELEMENT>Greeting</ELEMENT>
+        <ELEMENT>Single Core Insight</ELEMENT>
+        <ELEMENT>Primary Action</ELEMENT>
+      </ELEMENTS>
+    </ZONE>
+
+    <ZONE name="Focus">
+      <PURPOSE>Protect attention and enable deep work</PURPOSE>
+      <ELEMENTS>
+        <ELEMENT>Intent Prompt</ELEMENT>
+        <ELEMENT>Full-screen Timer</ELEMENT>
+        <ELEMENT>Minimal Micro-Prompts</ELEMENT>
+        <ELEMENT>Post-Session Reflection</ELEMENT>
+      </ELEMENTS>
+    </ZONE>
+
+    <ZONE name="Reflect">
+      <PURPOSE>Capture emotional and subjective state safely</PURPOSE>
+      <ELEMENTS>
+        <ELEMENT>Mood Input</ELEMENT>
+        <ELEMENT>Energy / Productivity Rating</ELEMENT>
+        <ELEMENT>Optional Text or Voice Reflection</ELEMENT>
+      </ELEMENTS>
+    </ZONE>
+
+    <ZONE name="Understand">
+      <PURPOSE>Reveal patterns and behavioral intelligence</PURPOSE>
+      <ELEMENTS>
+        <ELEMENT>Time-of-Day Patterns</ELEMENT>
+        <ELEMENT>Mood vs Productivity Correlation</ELEMENT>
+        <ELEMENT>Distraction Heatmaps</ELEMENT>
+        <ELEMENT>Human-Readable Insights</ELEMENT>
+      </ELEMENTS>
+    </ZONE>
+
+    <ZONE name="Grow">
+      <PURPOSE>Align behavior with identity and long-term meaning</PURPOSE>
+      <ELEMENTS>
+        <ELEMENT>Identity Board</ELEMENT>
+        <ELEMENT>Future Self Messages</ELEMENT>
+        <ELEMENT>Growth Timeline</ELEMENT>
+      </ELEMENTS>
+    </ZONE>
+
+  </ZONES>
+
+  <!-- ========================= -->
+  <!-- CORE FEATURES -->
+  <!-- ========================= -->
+  <FEATURES>
+
+    <FOCUS_ENGINE>
+      <FEATURE>Smart Focus Sessions</FEATURE>
+      <FEATURE>Distraction Detection</FEATURE>
+      <FEATURE>Focus Stability Scoring</FEATURE>
+      <FEATURE>Session Reflection</FEATURE>
+    </FOCUS_ENGINE>
+
+    <BEHAVIOR_INTELLIGENCE>
+      <FEATURE>Time-Series Analysis</FEATURE>
+      <FEATURE>Routine Detection</FEATURE>
+      <FEATURE>Slump Identification</FEATURE>
+      <FEATURE>Energy Curve Modeling</FEATURE>
+    </BEHAVIOR_INTELLIGENCE>
+
+    <EMOTIONAL_LAYER>
+      <FEATURE>Daily Mood Check-in</FEATURE>
+      <FEATURE>Sentiment Analysis</FEATURE>
+      <FEATURE>Burnout Risk Detection</FEATURE>
+    </EMOTIONAL_LAYER>
+
+    <ENVIRONMENT_INTELLIGENCE>
+      <FEATURE>Raspberry Pi Sensor Integration</FEATURE>
+      <FEATURE>Noise Analysis</FEATURE>
+      <FEATURE>Light and Temperature Tracking</FEATURE>
+      <FEATURE>Environment Focus Score</FEATURE>
+    </ENVIRONMENT_INTELLIGENCE>
+
+    <IDENTITY_SYSTEM>
+      <FEATURE>Values Mapping</FEATURE>
+      <FEATURE>Future Self Journaling</FEATURE>
+      <FEATURE>Growth Milestones</FEATURE>
+    </IDENTITY_SYSTEM>
+
+  </FEATURES>
+
+  <!-- ========================= -->
+  <!-- AI ARCHITECTURE -->
+  <!-- ========================= -->
+  <AI_SYSTEM>
+
+    <POLICY>
+      <RULE>Use Hugging Face official libraries only</RULE>
+      <RULE>No paid APIs</RULE>
+      <RULE>No frontend API keys</RULE>
+      <RULE>trust_remote_code = false</RULE>
+      <RULE>Logic-first, LLMs only for language</RULE>
+    </POLICY>
+
+    <TASK_REGISTRY>
+      <TASK name="sentiment-analysis"/>
+      <TASK name="summarization"/>
+      <TASK name="feature-extraction"/>
+      <TASK name="speech-to-text"/>
+    </TASK_REGISTRY>
+
+    <ORCHESTRATOR>
+      <STEP>Validate Task</STEP>
+      <STEP>Search HF Hub (filtered)</STEP>
+      <STEP>Score Models</STEP>
+      <STEP>Select Best Model</STEP>
+      <STEP>Load via Pipeline</STEP>
+      <STEP>Cache and Pin</STEP>
+      <STEP>Execute Safely</STEP>
+    </ORCHESTRATOR>
+
+  </AI_SYSTEM>
+
+  <!-- ========================= -->
+  <!-- SECURITY -->
+  <!-- ========================= -->
+  <SECURITY>
+    <RULE>No secrets in frontend</RULE>
+    <RULE>Single HF Read-Only Token</RULE>
+    <RULE>Backend-only environment variables</RULE>
+    <RULE>Model caching to reduce token exposure</RULE>
+    <RULE>Strict license allowlist</RULE>
+  </SECURITY>
+
+  <!-- ========================= -->
+  <!-- TECH STACK -->
+  <!-- ========================= -->
+  <TECH_STACK>
+    <FRONTEND>Next.js + TypeScript + Tailwind</FRONTEND>
+    <BACKEND>FastAPI + PostgreSQL</BACKEND>
+    <AI>Hugging Face Transformers + Torch</AI>
+    <STATE>Zustand + TanStack Query</STATE>
+  </TECH_STACK>
+
+  <!-- ========================= -->
+  <!-- FINAL DECLARATION -->
+  <!-- ========================= -->
+  <DECLARATION>
+    AURA is a complete, self-contained intelligence system
+    designed to help humans understand themselves, protect
+    their focus, and grow with clarity and calm.
+  </DECLARATION>
+
+</AURA_SYSTEM>

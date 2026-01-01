@@ -1,0 +1,117 @@
+<AURA_FRONTEND version="1.0">
+
+  <METADATA>
+    <NAME>AURA Frontend</NAME>
+    <TYPE>Web Application Interface</TYPE>
+    <GOAL>
+      Deliver a calm, Notion-like, card-based interface that reduces cognitive load
+      and guides users through focus, reflection, understanding, and growth.
+    </GOAL>
+  </METADATA>
+
+  <DESIGN_LANGUAGE>
+    <THEME>Dark Minimal</THEME>
+    <INSPIRATION>Notion (visual calm, spacing, typography)</INSPIRATION>
+    <STYLE>
+      <RULE>Content-first design</RULE>
+      <RULE>Low contrast, no visual noise</RULE>
+      <RULE>Cards over dashboards</RULE>
+      <RULE>One primary action per screen</RULE>
+    </STYLE>
+  </DESIGN_LANGUAGE>
+
+  <LAYOUT>
+    <STRUCTURE>Sidebar + Main Canvas</STRUCTURE>
+    <SIDEBAR>
+      <ITEM>Home</ITEM>
+      <ITEM>Focus</ITEM>
+      <ITEM>Reflect</ITEM>
+      <ITEM>Understand</ITEM>
+      <ITEM>Grow</ITEM>
+      <ITEM>Settings</ITEM>
+    </SIDEBAR>
+  </LAYOUT>
+
+  <CARD_SYSTEM>
+    <CARD type="InsightCard">
+      <PURPOSE>Surface a single key understanding</PURPOSE>
+    </CARD>
+    <CARD type="ActionCard">
+      <PURPOSE>Trigger one clear action</PURPOSE>
+    </CARD>
+    <CARD type="SignalCard">
+      <PURPOSE>Show glanceable state (energy, focus, risk)</PURPOSE>
+    </CARD>
+    <CARD type="PatternCard">
+      <PURPOSE>Display trends and correlations</PURPOSE>
+    </CARD>
+    <CARD type="StrategyCard">
+      <PURPOSE>Present optional recommendations</PURPOSE>
+    </CARD>
+  </CARD_SYSTEM>
+
+  <SCREENS>
+
+    <SCREEN name="Home">
+      <INTENT>Orient the user to the present moment</INTENT>
+      <ELEMENTS>
+        <ELEMENT>Greeting</ELEMENT>
+        <ELEMENT>Single InsightCard</ELEMENT>
+        <ELEMENT>Primary ActionCard</ELEMENT>
+        <ELEMENT>Optional SignalCards</ELEMENT>
+      </ELEMENTS>
+    </SCREEN>
+
+    <SCREEN name="Focus">
+      <INTENT>Enable distraction-free deep work</INTENT>
+      <ELEMENTS>
+        <ELEMENT>Intent Prompt</ELEMENT>
+        <ELEMENT>Full-screen Timer</ELEMENT>
+        <ELEMENT>Minimal Micro-Prompts</ELEMENT>
+        <ELEMENT>Post-session Reflection</ELEMENT>
+      </ELEMENTS>
+      <RULE>No navigation visible during session</RULE>
+    </SCREEN>
+
+    <SCREEN name="Reflect">
+      <INTENT>Capture subjective emotional state safely</INTENT>
+      <ELEMENTS>
+        <ELEMENT>Mood Selector</ELEMENT>
+        <ELEMENT>Productivity Slider</ELEMENT>
+        <ELEMENT>Optional Text or Voice Reflection</ELEMENT>
+      </ELEMENTS>
+    </SCREEN>
+
+    <SCREEN name="Understand">
+      <INTENT>Reveal behavioral and performance patterns</INTENT>
+      <ELEMENTS>
+        <ELEMENT>PatternCards</ELEMENT>
+        <ELEMENT>Simple Charts</ELEMENT>
+        <ELEMENT>Human-readable Insights</ELEMENT>
+      </ELEMENTS>
+    </SCREEN>
+
+    <SCREEN name="Grow">
+      <INTENT>Align behavior with identity</INTENT>
+      <ELEMENTS>
+        <ELEMENT>Identity Board</ELEMENT>
+        <ELEMENT>Future Self Messages</ELEMENT>
+        <ELEMENT>Growth Timeline</ELEMENT>
+      </ELEMENTS>
+    </SCREEN>
+
+  </SCREENS>
+
+  <STATE_MANAGEMENT>
+    <LOCAL_STATE>Zustand</LOCAL_STATE>
+    <SERVER_STATE>TanStack Query</SERVER_STATE>
+  </STATE_MANAGEMENT>
+
+  <FRONTEND_RULES>
+    <RULE>No business logic in UI</RULE>
+    <RULE>No secrets in frontend</RULE>
+    <RULE>Frontend talks only to Backend API</RULE>
+    <RULE>All AI results are pre-processed</RULE>
+  </FRONTEND_RULES>
+
+</AURA_FRONTEND>

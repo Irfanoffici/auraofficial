@@ -1,0 +1,87 @@
+<AURA_BACKEND version="1.0">
+
+  <METADATA>
+    <NAME>AURA Backend</NAME>
+    <TYPE>API & Business Logic Layer</TYPE>
+    <GOAL>
+      Securely manage users, sessions, reflections, insights, and
+      coordinate AI services while enforcing privacy and consistency.
+    </GOAL>
+  </METADATA>
+
+  <CORE_RESPONSIBILITIES>
+    <RESPONSIBILITY>User authentication and authorization</RESPONSIBILITY>
+    <RESPONSIBILITY>Data persistence and retrieval</RESPONSIBILITY>
+    <RESPONSIBILITY>Session and check-in management</RESPONSIBILITY>
+    <RESPONSIBILITY>Insight aggregation</RESPONSIBILITY>
+    <RESPONSIBILITY>AI service coordination</RESPONSIBILITY>
+  </CORE_RESPONSIBILITIES>
+
+  <AUTH>
+    <METHOD>JWT</METHOD>
+    <RULE>Auth required for all non-public endpoints</RULE>
+  </AUTH>
+
+  <DATA_MODELS>
+
+    <MODEL name="User">
+      <FIELD>id</FIELD>
+      <FIELD>email</FIELD>
+      <FIELD>password_hash</FIELD>
+      <FIELD>timezone</FIELD>
+      <FIELD>created_at</FIELD>
+    </MODEL>
+
+    <MODEL name="Profile">
+      <FIELD>user_id</FIELD>
+      <FIELD>wake_time</FIELD>
+      <FIELD>sleep_time</FIELD>
+      <FIELD>preferred_focus_window</FIELD>
+      <FIELD>goals</FIELD>
+    </MODEL>
+
+    <MODEL name="FocusSession">
+      <FIELD>user_id</FIELD>
+      <FIELD>start_time</FIELD>
+      <FIELD>end_time</FIELD>
+      <FIELD>duration</FIELD>
+      <FIELD>focus_score</FIELD>
+      <FIELD>interruptions</FIELD>
+    </MODEL>
+
+    <MODEL name="DailyCheckin">
+      <FIELD>user_id</FIELD>
+      <FIELD>mood_score</FIELD>
+      <FIELD>productivity_score</FIELD>
+      <FIELD>notes</FIELD>
+      <FIELD>timestamp</FIELD>
+    </MODEL>
+
+    <MODEL name="Insight">
+      <FIELD>user_id</FIELD>
+      <FIELD>summary_text</FIELD>
+      <FIELD>metrics</FIELD>
+      <FIELD>recommendations</FIELD>
+      <FIELD>generated_at</FIELD>
+    </MODEL>
+
+  </DATA_MODELS>
+
+  <API_ENDPOINTS>
+    <ENDPOINT>/auth/signup</ENDPOINT>
+    <ENDPOINT>/auth/login</ENDPOINT>
+    <ENDPOINT>/focus/start</ENDPOINT>
+    <ENDPOINT>/focus/end</ENDPOINT>
+    <ENDPOINT>/checkin/submit</ENDPOINT>
+    <ENDPOINT>/dashboard/summary</ENDPOINT>
+    <ENDPOINT>/insights</ENDPOINT>
+  </API_ENDPOINTS>
+
+  <BACKEND_RULES>
+    <RULE>No AI logic in frontend</RULE>
+    <RULE>No direct HF access from frontend</RULE>
+    <RULE>All AI calls routed through AI service</RULE>
+    <RULE>Strict validation on all inputs</RULE>
+  </BACKEND_RULES>
+
+</AURA_BACKEND>
